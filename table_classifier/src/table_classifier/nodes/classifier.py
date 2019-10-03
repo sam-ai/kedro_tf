@@ -9,26 +9,24 @@ import os
 import cv2
 import subprocess
 
-
 import os
 import shutil
 import glob
 import urllib.request
 import tarfile
 
-
 import re
 
-os.environ['PYTHONPATH'] += ':/content/kedro_table_classifier/table_classifier/src/table_classifier/nodes/models' \
-                            '/research/:/content/kedro_table_classifier/table_classifier/src/table_classifier/nodes' \
+os.environ['PYTHONPATH'] += ':/content/kedro_tf/table_classifier/src/table_classifier/nodes/models' \
+                            '/research/:/content/kedro_tf/table_classifier/src/table_classifier/nodes' \
                             '/models/research/slim/'
 
-from object_detection.utils import label_map_util
+
+# from object_detection.utils import label_map_util
 
 
 def jsonl_image_csv(data: List,
                     store_image_path: str) -> pd.DataFrame:
-
     image_info_list = []
     cwd = os.getcwd()
     logging.info("storing images at : {}".format(store_image_path))
@@ -64,7 +62,6 @@ def jsonl_image_csv(data: List,
 
 def split_data(data: pd.DataFrame,
                test_data_ratio: int) -> List:
-
     logging.info("split with ratio -> {}".format(str(test_data_ratio)))
     data = data.sample(frac=1).reset_index(drop=True)
     train, test = train_test_split(data, test_size=test_data_ratio)
@@ -76,20 +73,19 @@ def generate_tfrecord(store_image_path: str,
                       test_csv: str,
                       label_pbtxt: str
                       ) -> None:
-
     train_record = 'data/05_model_input/train.record'
     test_record = 'data/05_model_input/test.record'
 
     base_path = os.path.dirname(__file__)
 
-    subprocess.call(['python',
+    subprocess.call(['python3',
                      os.path.join(base_path, "object_detection_demo/generate_tfrecord.py"),
                      '--img_path={}'.format(store_image_path),
                      '--csv_input={}'.format(train_csv),
                      '--output_path={}'.format(train_record),
                      '--label_map={}'.format(label_pbtxt)])
 
-    subprocess.call(['python',
+    subprocess.call(['python3',
                      os.path.join(base_path, "object_detection_demo/generate_tfrecord.py"),
                      '--img_path={}'.format(store_image_path),
                      '--csv_input={}'.format(test_csv),
@@ -100,7 +96,6 @@ def generate_tfrecord(store_image_path: str,
 def download_model(train_model: str,
                    download_base: str,
                    store_pre_model: str) -> None:
-
     MODEL_FILE = train_model + '.tar.gz'
     if not (os.path.exists(MODEL_FILE)):
         urllib.request.urlretrieve(download_base + MODEL_FILE, MODEL_FILE)
@@ -113,12 +108,12 @@ def download_model(train_model: str,
     os.rename(train_model, store_pre_model)
 
 
-def get_num_classes(pbtxt_fname) -> int:
-    label_map = label_map_util.load_labelmap(pbtxt_fname)
-    categories = label_map_util.convert_label_map_to_categories(
-        label_map, max_num_classes=90, use_display_name=True)
-    category_index = label_map_util.create_category_index(categories)
-    return len(category_index.keys())
+# def get_num_classes(pbtxt_fname) -> int:
+#     label_map = label_map_util.load_labelmap(pbtxt_fname)
+#     categories = label_map_util.convert_label_map_to_categories(
+#         label_map, max_num_classes=90, use_display_name=True)
+#     category_index = label_map_util.create_category_index(categories)
+#     return len(category_index.keys())
 
 
 def edit_config_pipeline(pipeline_file: str,
@@ -126,17 +121,16 @@ def edit_config_pipeline(pipeline_file: str,
                          test_record_fname: str,
                          train_record_fname: str,
                          store_pre_model: str) -> None:
-
     batch_size = 12
     num_steps = 1212
 
     fine_tune_checkpoint = os.path.join(store_pre_model, "model.ckpt")
     base_path = os.path.dirname(__file__)
-    pipeline_fname = os.path.join(base_path, '/models/research/object_detection/samples/configs/', pipeline_file)
+    pipeline_fname = os.path.join(base_path, 'models/research/object_detection/samples/configs/', pipeline_file)
 
     assert os.path.isfile(pipeline_fname), '`{}` not exist'.format(pipeline_fname)
 
-    num_classes = get_num_classes(label_map_pbtxt_fname)
+    num_classes = 1
     with open(pipeline_fname) as f:
         s = f.read()
     with open(pipeline_fname, 'w') as f:
@@ -170,8 +164,49 @@ def edit_config_pipeline(pipeline_file: str,
         f.write(s)
 
 
+def train_tensorflow_model(pipeline_file: str) -> None:
+    base_path = os.path.dirname(__file__)
+
+    pipeline_fname = os.path.join(base_path, 'models/research/object_detection/samples/configs/', pipeline_file)
+
+    store_model_dir = 'data/07_model_output'
+    # Number of training steps.
+    num_steps = 500  # 200000
+
+    # Number of evaluation steps.
+    num_eval_steps = 50
+
+    subprocess.call(['python3',
+                     os.path.join(base_path, "models/research/object_detection/model_main.py"),
+                     '--pipeline_config_path={}'.format(pipeline_fname),
+                     '--model_dir={}'.format(store_model_dir),
+                     '--alsologtostderr',
+                     '--num_train_steps={}'.format(num_steps),
+                     '--num_eval_steps={}'.format(num_eval_steps)
+                     ])
 
 
+def store_frozen_model(pipeline_file: str) -> None:
+    store_model_dir = 'data/07_model_output'
+    output_directory = 'data/08_frozen_model'
 
+    base_path = os.path.dirname(__file__)
 
+    pipeline_fname = os.path.join(base_path, 'models/research/object_detection/samples/configs/', pipeline_file)
 
+    lst = os.listdir(store_model_dir)
+    print(lst)
+    lst = [l for l in lst if 'model.ckpt-' in l and '.meta' in l]
+    steps = np.array([int(re.findall('\d+', l)[0]) for l in lst])
+    last_model = lst[steps.argmax()].replace('.meta', '')
+
+    last_model_path = os.path.join(store_model_dir, last_model)
+
+    subprocess.call(['python3',
+                     os.path.join(base_path, "models/research/object_detection/export_inference_graph.py"),
+                     '--input_type=image_tensor',
+                     '--pipeline_config_path={}'.format(pipeline_fname),
+                     '--alsologtostderr',
+                     '--output_directory={}'.format(output_directory),
+                     '--trained_checkpoint_prefix={}'.format(last_model_path)
+                     ])
