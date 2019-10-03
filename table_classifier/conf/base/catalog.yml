@@ -1,0 +1,22 @@
+
+#example_iris_data:
+#  type: CSVLocalDataSet
+#  filepath: data/01_raw/iris.csv
+
+invoice_data:
+  type: table_classifier.io.jsonl_local.JsonlLocalDataSet
+  filepath: data/01_raw/invoice.jsonl
+
+label_dataframe:
+  type: CSVLocalDataSet
+  filepath: data/03_primary/labels.csv
+
+train_dataframe:
+  type: CSVLocalDataSet
+  filepath: data/04_features/train.csv
+
+test_dataframe:
+  type: CSVLocalDataSet
+  filepath: data/04_features/test.csv
+
+
