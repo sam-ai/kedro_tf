@@ -26,3 +26,16 @@ export PYTHONPATH=':/content/kedro_tf/table_classifier/src/table_classifier/node
 python3 object_detection/builders/model_builder_test.py
 
 cd ../../../../../
+
+pip3 install kedro
+kedro info
+
+cd table_classifier/
+kedro install
+kedro run -n jsonl_to_csv
+kedro run -n split_dataframe
+kedro run -n generate_tfrecord
+kedro run -n download_model
+kedro run -n edit_config
+kedro run -n train_model
+kedro run -n store_frozen
