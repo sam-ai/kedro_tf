@@ -3,6 +3,9 @@
 # Fetch data from Drive
 # cp /content/drive/'My Drive'/invoice_table_classifier/invoice.jsonl /content/kedro_table_classifier/table_classifier/data/01_raw
 
+mv label_map.pbtxt table_classifier/data/04_features/
+mkdir table_classifier/data/02_intermediate/images
+
 git clone https://github.com/sam-ai/object_detection_demo.git
 mv object_detection_demo/ /content/kedro_tf/table_classifier/src/table_classifier/nodes/
 
