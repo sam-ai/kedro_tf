@@ -1,33 +1,51 @@
 
-
-store_image_path: "data/02_intermediate/images"
-
-
-
-test_data_ratio: 0.2
-example_learning_rate: 0.01
+# jsonl_image_csv params
+jsonl_image_store_image_path: "data/02_intermediate/images"
 
 
+# split_data params
+split_data_test_data_ratio: 0.2
 
+# generate_tfrecord params
+# example_learning_rate: 0.01
+generate_tfrecord_image_path: "data/02_intermediate/images"
+generate_tfrecord_train_csv: 'data/04_features/train.csv'
+generate_tfrecord_test_csv: 'data/04_features/test.csv'
+generate_tfrecord_label_pbtxt: 'data/04_features/label_map.pbtxt'
+generate_tfrecord_store_record_dir: 'data/05_model_input'
 
-train_csv: 'data/04_features/train.csv'
-test_csv: 'data/04_features/test.csv'
-label_pbtxt: 'data/04_features/label_map.pbtxt'
 
 
 test_record_fname: 'data/05_model_input/test.record'
 train_record_fname: 'data/05_model_input/train.record'
 label_map_pbtxt_fname: 'data/04_features/label_map.pbtxt'
 
+# download_model params
+download_model_train_model: 'ssd_mobilenet_v2_coco_2018_03_29'
+download_model_base_url: 'http://download.tensorflow.org/models/object_detection/'
+download_model_store_pre_model: 'data/06_models/'
 
-train_model: 'ssd_mobilenet_v2_coco_2018_03_29'
-download_base: 'http://download.tensorflow.org/models/object_detection/'
-store_pre_model: 'data/06_models/'
 
+# edit_config_pipeline
+edit_config_pipeline_file: 'ssd_mobilenet_v2_coco.config'
+edit_config_label_map_pbtx: 'data/04_features/label_map.pbtxt'
+edit_config_test_record: 'data/05_model_input/test.record'
+edit_config_train_record: 'data/05_model_input/train.record'
+edit_config_store_pre_model: 'data/06_models/'
+edit_config_num_train_iter: 5000
+edit_config_num_steps: 50
+edit_config_batch_size: 12
 
-pipeline_file: 'ssd_mobilenet_v2_coco.config'
-num_train_iter: 5000
-num_steps: 50
+# train_model params
+train_model_pipeline_file: 'ssd_mobilenet_v2_coco.config'
+train_model_store_dir: 'data/07_model_output'
+train_model_num_steps: 500
+train_model_num_eval_steps: 50
+
+# store_frozen_model params
+store_frozen_pipeline_file: 'ssd_mobilenet_v2_coco.config'
+store_frozen_store_model_dir: 'data/07_model_output'
+store_frozen_output_directory: 'data/08_frozen_model'
 
 # batch: ${file(./model_config.yml):${MODEL_NAME}.batch_size}
 
