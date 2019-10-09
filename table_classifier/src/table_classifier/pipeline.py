@@ -1,6 +1,12 @@
 from kedro.pipeline import Pipeline, node
 
-from .nodes.classifier import split_data, jsonl_image_csv, generate_tfrecord, download_model, edit_config_pipeline, train_tensorflow_model, store_frozen_model
+from .nodes.classifier import (split_data,
+                               jsonl_image_csv,
+                               generate_tfrecord,
+                               download_model,
+                               edit_config_pipeline,
+                               train_tensorflow_model,
+                               store_frozen_model)
 
 
 def create_pipeline(**kwargs):

@@ -21,9 +21,6 @@ os.environ['PYTHONPATH'] += ':/content/kedro_tf/table_classifier/src/table_class
                             '/models/research/slim/'
 
 
-# from object_detection.utils import label_map_util
-
-
 def jsonl_image_csv(data: List,
                     jsonl_image_store_image_path: str
                     ) -> pd.DataFrame:
@@ -31,7 +28,6 @@ def jsonl_image_csv(data: List,
     image_info_list = []
     cwd = os.getcwd()
     logging.info("storing images at : {}".format(jsonl_image_store_image_path))
-    # store_dir = parameters['store_image_path']
     for annotations in data:
         imgdata = base64.b64decode(annotations['image'].split(',')[1])
         image_path = os.path.join(cwd,
@@ -53,8 +49,7 @@ def jsonl_image_csv(data: List,
                     image_info_list.append(value)
             else:
                 pass
-    logging.info("Number of docs : {}".format(str(len(image_info_list))))
-    column_name = ["filename", "width", "height", "class", "xmin", "ymin", "xmax", "ymax"]
+
     logging.info("Number of docs : {}".format(str(len(image_info_list))))
     column_name = ["filename", "width", "height", "class", "xmin", "ymin", "xmax", "ymax"]
     image_info_df = pd.DataFrame(image_info_list, columns=column_name)
@@ -92,10 +87,10 @@ def generate_tfrecord(record_store_image_path: str,
                                '--output_path={}'.format(train_record),
                                '--label_map={}'.format(generate_tfrecord_label_pbtxt)])
 
-    except subprocess.CalledProcessError:
-        pass  # handle errors in the called executable
-    except OSError:
-        pass  # executable not found
+    except subprocess.CalledProcessError as e:
+        logging.error("error in generating train tfrecord -> {}".format(e))
+    except OSError as e:
+        logging.error("error in generating train tfrecord -> {}".format(e))
 
     try:
         subprocess.check_call(['python3',
@@ -104,10 +99,10 @@ def generate_tfrecord(record_store_image_path: str,
                                '--csv_input={}'.format(generate_tfrecord_test_csv),
                                '--output_path={}'.format(test_record),
                                '--label_map={}'.format(generate_tfrecord_label_pbtxt)])
-    except subprocess.CalledProcessError:
-        pass
-    except OSError:
-        pass
+    except subprocess.CalledProcessError as e:
+        logging.error("error in generating test tfrecord -> {}".format(e))
+    except OSError as e:
+        logging.error("error in generating test tfrecord -> {}".format(e))
 
 
 def download_model(download_model_train_model: str,
@@ -192,19 +187,24 @@ def train_tensorflow_model(train_model_pipeline_file: str,
                            train_model_num_steps: str,
                            train_model_num_eval_steps: str
                            ) -> None:
-    base_path = os.path.dirname(__file__)
 
+    base_path = os.path.dirname(__file__)
     pipeline_fname = os.path.join(base_path, 'models/research/object_detection/samples/configs/',
                                   train_model_pipeline_file)
 
-    subprocess.call(['python3',
-                     os.path.join(base_path, "models/research/object_detection/model_main.py"),
-                     '--pipeline_config_path={}'.format(pipeline_fname),
-                     '--model_dir={}'.format(train_model_store_dir),
-                     '--alsologtostderr',
-                     '--num_train_steps={}'.format(train_model_num_steps),
-                     '--num_eval_steps={}'.format(train_model_num_eval_steps)
-                     ])
+    try:
+        subprocess.call(['python3',
+                         os.path.join(base_path, "models/research/object_detection/model_main.py"),
+                         '--pipeline_config_path={}'.format(pipeline_fname),
+                         '--model_dir={}'.format(train_model_store_dir),
+                         '--alsologtostderr',
+                         '--num_train_steps={}'.format(train_model_num_steps),
+                         '--num_eval_steps={}'.format(train_model_num_eval_steps)
+                         ])
+    except subprocess.CalledProcessError as e:
+        logging.error("error in training tensorflow-> {}".format(e))
+    except OSError as e:
+        logging.error("error in training tensorflow -> {}".format(e))
 
 
 def store_frozen_model(store_frozen_pipeline_file: str,
@@ -225,11 +225,16 @@ def store_frozen_model(store_frozen_pipeline_file: str,
 
     last_model_path = os.path.join(store_frozen_store_model_dir, last_model)
 
-    subprocess.call(['python3',
-                     os.path.join(base_path, "models/research/object_detection/export_inference_graph.py"),
-                     '--input_type=image_tensor',
-                     '--pipeline_config_path={}'.format(pipeline_fname),
-                     '--alsologtostderr',
-                     '--output_directory={}'.format(store_frozen_output_directory),
-                     '--trained_checkpoint_prefix={}'.format(last_model_path)
-                     ])
+    try:
+        subprocess.call(['python3',
+                         os.path.join(base_path, "models/research/object_detection/export_inference_graph.py"),
+                         '--input_type=image_tensor',
+                         '--pipeline_config_path={}'.format(pipeline_fname),
+                         '--alsologtostderr',
+                         '--output_directory={}'.format(store_frozen_output_directory),
+                         '--trained_checkpoint_prefix={}'.format(last_model_path)
+                         ])
+    except subprocess.CalledProcessError as e:
+        logging.error("error in storing frozen model -> {}".format(e))
+    except OSError as e:
+        logging.error("error in storing frozen model -> {}".format(e))
