@@ -73,8 +73,7 @@ def create_pipeline(**kwargs):
                     "params:edit_config_test_record",
                     "params:edit_config_train_record",
                     "params:edit_config_store_pre_model",
-                    "params:edit_config_num_train_iter",
-                    "params:edit_config_num_train_iter",
+                    "params:edit_config_num_class",
                     "params:edit_config_num_steps",
                     "params:edit_config_batch_size"
                 ],

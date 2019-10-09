@@ -135,12 +135,10 @@ def edit_config_pipeline(edit_config_pipeline_file: str,
                          edit_config_test_record: str,
                          edit_config_train_record: str,
                          edit_config_store_pre_model: str,
-                         edit_config_num_train_iter: int,
+                         edit_config_num_class: int,
                          edit_config_num_steps: int,
                          edit_config_batch_size: int
                          ) -> None:
-    num_steps = 1212
-    num_classes = 1
 
     fine_tune_checkpoint = os.path.join(edit_config_store_pre_model, "model.ckpt")
     base_path = os.path.dirname(__file__)
@@ -172,11 +170,11 @@ def edit_config_pipeline(edit_config_pipeline_file: str,
 
         # Set training steps, num_steps
         s = re.sub('num_steps: [0-9]+',
-                   'num_steps: {}'.format(num_steps), s)
+                   'num_steps: {}'.format(edit_config_num_steps), s)
 
         # Set number of classes num_classes.
         s = re.sub('num_classes: [0-9]+',
-                   'num_classes: {}'.format(num_classes), s)
+                   'num_classes: {}'.format(edit_config_num_class), s)
 
         logging.info("config file ---> {}".format(s))
         f.write(s)
