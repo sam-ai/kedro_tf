@@ -131,11 +131,12 @@ def jsonl_image_csv(data: List,
                         ymin = 0
                     if ymax > height:
                         ymax = height - 1
+
                     value = (image_path, width, height, span['label'],
-                             xmin,
-                             ymin,
-                             xmax,
-                             ymax)
+                             (xmin * width),
+                             (ymin * height),
+                             (xmax * width),
+                             (ymax * height))
                     image_info_list.append(value)
             else:
                 pass
