@@ -5,7 +5,7 @@
 
 invoice_data:
   type: table_classifier.io.jsonl_local.JsonlLocalDataSet
-  filepath: data/01_raw/table_rg11.10.jsonl
+  filepath: data/01_raw/table_rg15.10.jsonl
 
 label_dataframe:
   type: CSVLocalDataSet
