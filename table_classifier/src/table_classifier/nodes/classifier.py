@@ -90,6 +90,8 @@ def jsonl_image_csv(data: List,
 
         filename = str(annotations["meta"]["file"])
         file_extension = filename.split(".")[-1].lower()
+        
+        store_filename = annotations["text"]
 
         if file_extension == "png":
             image_format = '.png'
@@ -103,7 +105,7 @@ def jsonl_image_csv(data: List,
 
         image_path = os.path.join(cwd,
                                   jsonl_image_store_image_path,
-                                  filename.split(".")[0] + image_format)
+                                  store_filename + image_format)
 
         # height, width = annotations['height'], annotations['width']
         width, height = image.size
