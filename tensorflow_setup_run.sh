@@ -23,6 +23,7 @@ protoc object_detection/protos/*.proto --python_out=.
 
 # shellcheck disable=SC1073
 export PYTHONPATH=':/content/kedro_tf/table_classifier/src/table_classifier/nodes/models/research/:/content/kedro_tf/table_classifier/src/table_classifier/nodes/models/research/slim/'
+# ':$(pwd)/table_classifier/src/table_classifier/nodes/models/research/:$(pwd)/table_classifier/src/table_classifier/nodes/models/research/slim/'
 python3 object_detection/builders/model_builder_test.py
 
 cd ../../../../../
