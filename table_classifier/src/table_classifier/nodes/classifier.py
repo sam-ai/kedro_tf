@@ -19,9 +19,19 @@ import tarfile
 
 import re
 
+# cwd = os.getcwd()
+
+# os.environ['PYTHONPATH'] += ':{}/table_classifier/src/table_classifier/nodes/models' \
+#                             '/research/:{}/table_classifier/src/table_classifier/nodes' \
+#                             '/models/research/slim/'.format(cwd, cwd)
+
+
+
 os.environ['PYTHONPATH'] += ':/content/kedro_tf/table_classifier/src/table_classifier/nodes/models' \
                             '/research/:/content/kedro_tf/table_classifier/src/table_classifier/nodes' \
                             '/models/research/slim/'
+
+
 
 
 # def jsonl_image_csv(data: List,
