@@ -22,8 +22,10 @@ cd table_classifier/src/table_classifier/nodes/models/research/
 protoc object_detection/protos/*.proto --python_out=.
 
 # shellcheck disable=SC1073
-export PYTHONPATH=':/home/Shiftu-Admin/tfodi_invoice_table_classifier/kedro_tf/table_classifier/src/table_classifier/nodes/models/research/:/home/Shiftu-Admin/tfodi_in$
+export PYTHONPATH=':/home/Shiftu-Admin/tfodi_invoice_table_classifier/kedro_tf/table_classifier/src/table_classifier/nodes/models/research/:/home/Shiftu-Admin/tfodi_invoice_table_classifier/kedro_tf/table_classifier/src/table_classifier/nodes/models/research/slim/'
 # export PYTHONPATH=':$(pwd)/table_classifier/src/table_classifier/nodes/models/research/:$(pwd)/table_classifier/src/table_classifier/nodes/models/research/slim/'
+
+
 python3 object_detection/builders/model_builder_test.py
 
 cd ../../../../../
@@ -31,7 +33,7 @@ cd ../../../../../
 pip3 install --user kedro
 kedro info
 
-cd table_classifier/
+cd table_classifier
 kedro install
 kedro run -n jsonl_to_csv
 kedro run -n split_dataframe
@@ -40,4 +42,3 @@ kedro run -n download_model
 kedro run -n edit_config
 kedro run -n train_model
 kedro run -n store_frozen
-
