@@ -27,10 +27,13 @@ import re
 
 
 
-os.environ['PYTHONPATH'] += ':/content/kedro_tf/table_classifier/src/table_classifier/nodes/models' \
-                            '/research/:/content/kedro_tf/table_classifier/src/table_classifier/nodes' \
-                            '/models/research/slim/'
+# os.environ['PYTHONPATH'] += ':/content/kedro_tf/table_classifier/src/table_classifier/nodes/models' \
+#                             '/research/:/content/kedro_tf/table_classifier/src/table_classifier/nodes' \
+#                             '/models/research/slim/'
 
+os.environ['PYTHONPATH'] += ':/home/Shiftu-Admin/tfodi_invoice_table_classifier/kedro_tf/table_classifier/src/table_classifier/nodes/models' \
+                            '/research/:/home/Shiftu-Admin/tfodi_invoice_table_classifier/kedro_tf/table_classifier/src/table_classifier/nodes' \
+                            '/models/research/slim/'
 
 
 
