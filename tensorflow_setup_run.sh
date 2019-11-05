@@ -33,7 +33,7 @@ cd ../../../../../
 pip3 install --user kedro
 kedro info
 
-cd table_classifier
+cd table_classifier/
 kedro install
 kedro run -n jsonl_to_csv
 kedro run -n split_dataframe
