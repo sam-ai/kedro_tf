@@ -39,7 +39,7 @@ edit_config_batch_size: 12
 # train_model params
 train_model_pipeline_file: 'ssd_mobilenet_v2_coco.config'
 train_model_store_dir: 'data/07_model_output'
-train_model_num_steps: 5000
+train_model_num_steps: 20000
 train_model_num_eval_steps: 50
 
 # store_frozen_model params
