@@ -3,9 +3,13 @@
 #  type: CSVLocalDataSet
 #  filepath: data/01_raw/iris.csv
 
+# invoice_data:
+#   type: table_classifier.io.jsonl_local.JsonlLocalDataSet
+#   filepath: data/01_raw/table_rg15.10.jsonl
+  
 invoice_data:
   type: table_classifier.io.jsonl_local.JsonlLocalDataSet
-  filepath: data/01_raw/table_rg15.10.jsonl
+  filepath: data/01_raw/CWS_BOL_withouterrorfiles.jsonl
 
 label_dataframe:
   type: CSVLocalDataSet
