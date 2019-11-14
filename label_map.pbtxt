@@ -17,3 +17,8 @@ item {
   id: 4
   name: 'FROM_ADDRESS'
 }
+
+item {
+  id: 5
+  name: 'OTHER_ADDRESS'
+}
