@@ -4,7 +4,7 @@ jsonl_image_store_image_path: "data/02_intermediate/images"
 
 
 # split_data params
-split_data_test_data_ratio: 0.2
+split_data_test_data_ratio: 0.3
 
 # generate_tfrecord params
 # example_learning_rate: 0.01
@@ -32,14 +32,14 @@ edit_config_label_map_pbtx: 'data/04_features/label_map.pbtxt'
 edit_config_test_record: 'data/05_model_input/test.record'
 edit_config_train_record: 'data/05_model_input/train.record'
 edit_config_store_pre_model: 'data/06_models/'
-edit_config_num_class: 4
+edit_config_num_class: 5
 edit_config_num_steps: 50
 edit_config_batch_size: 12
 
 # train_model params
 train_model_pipeline_file: 'ssd_mobilenet_v2_coco.config'
 train_model_store_dir: 'data/07_model_output'
-train_model_num_steps: 20000
+train_model_num_steps: 2000000
 train_model_num_eval_steps: 50
 
 # store_frozen_model params
