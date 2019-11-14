@@ -9,7 +9,7 @@
   
 invoice_data:
   type: table_classifier.io.jsonl_local.JsonlLocalDataSet
-  filepath: data/01_raw/CWS_BOL_withouterrorfiles.jsonl
+  filepath: data/01_raw/data_litelink_bol_all.jsonl
 
 label_dataframe:
   type: CSVLocalDataSet
