@@ -24,8 +24,10 @@ protoc object_detection/protos/*.proto --python_out=.
 # shellcheck disable=SC1073
 # export PYTHONPATH=':/home/Shiftu-Admin/tfodi_invoice_table_classifier/kedro_tf/table_classifier/src/table_classifier/nodes/models/research/:/home/Shiftu-Admin/tfodi_invoice_table_classifier/kedro_tf/table_classifier/src/table_classifier/nodes/models/research/slim/'
 # export PYTHONPATH=':/home/Shiftu-Admin/tfodi_cws_detector/kedro_tf/table_classifier/src/table_classifier/nodes/models/research/:/home/Shiftu-Admin/tfodi_cws_detector/kedro_tf/table_classifier/src/table_classifier/nodes/models/research/slim/'
-export PYTHONPATH=':/home/Shiftu-Admin/tfodi_bol_detector/kedro_tf/table_classifier/src/table_classifier/nodes/models/research/:/home/Shiftu-Admin/tfodi_bol_detector/kedro_tf/table_classifier/src/table_classifier/nodes/models/research/slim/'
+# export PYTHONPATH=':/home/Shiftu-Admin/tfodi_bol_detector/kedro_tf/table_classifier/src/table_classifier/nodes/models/research/:/home/Shiftu-Admin/tfodi_bol_detector/kedro_tf/table_classifier/src/table_classifier/nodes/models/research/slim/'
 # export PYTHONPATH=':$(pwd)/table_classifier/src/table_classifier/nodes/models/research/:$(pwd)/table_classifier/src/table_classifier/nodes/models/research/slim/'
+export PYTHONPATH=':/home/Shiftu-Admin/tfodi_bol_address_detector/kedro_tf/table_classifier/src/table_classifier/nodes/models/research/:/home/Shiftu-Admin/tfodi_bol_address_detector/kedro_tf/table_classifier/src/table_classifier/nodes/models/research/slim/'
+
 
 
 python3 object_detection/builders/model_builder_test.py
