@@ -32,7 +32,7 @@ edit_config_label_map_pbtx: 'data/04_features/label_map.pbtxt'
 edit_config_test_record: 'data/05_model_input/test.record'
 edit_config_train_record: 'data/05_model_input/train.record'
 edit_config_store_pre_model: 'data/06_models/'
-edit_config_num_class: 5
+edit_config_num_class: 1
 edit_config_num_steps: 50
 edit_config_batch_size: 12
 
