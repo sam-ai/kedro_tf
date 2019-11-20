@@ -1,0 +1,25 @@
+
+item {
+  id: 1
+  name: 'TABLE'
+}
+
+item {
+  id: 2
+  name: 'SIGNATURE'
+}
+
+item {
+  id: 3
+  name: 'TO_ADDRESS'
+}
+
+item {
+  id: 4
+  name: 'FROM_ADDRESS'
+}
+
+item {
+  id: 5
+  name: 'OTHER_ADDRESS'
+}
