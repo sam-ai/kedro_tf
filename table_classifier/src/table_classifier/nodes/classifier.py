@@ -35,8 +35,13 @@ import re
 #                             '/research/:/home/Shiftu-Admin/tfodi_invoice_table_classifier/kedro_tf/table_classifier/src/table_classifier/nodes' \
 #                             '/models/research/slim/'
 
-os.environ['PYTHONPATH'] += ':/home/Shiftu-Admin/tfodi_bol_detector/kedro_tf/table_classifier/src/table_classifier/nodes/models' \
-                            '/research/:/home/Shiftu-Admin/tfodi_bol_detector/kedro_tf/table_classifier/src/table_classifier/nodes' \
+# os.environ['PYTHONPATH'] += ':/home/Shiftu-Admin/tfodi_bol_detector/kedro_tf/table_classifier/src/table_classifier/nodes/models' \
+#                             '/research/:/home/Shiftu-Admin/tfodi_bol_detector/kedro_tf/table_classifier/src/table_classifier/nodes' \
+#                             '/models/research/slim/'
+
+
+os.environ['PYTHONPATH'] += ':/home/Shiftu-Admin/tfodi_bol_address_detector/kedro_tf/table_classifier/src/table_classifier/nodes/models' \
+                            '/research/:/home/Shiftu-Admin/tfodi_bol_address_detector/kedro_tf/table_classifier/src/table_classifier/nodes' \
                             '/models/research/slim/'
 
 
