@@ -155,12 +155,12 @@ def jsonl_image_csv(data: List,
                     ymin = ymin/height
                     xmax = xmax/width
                     ymax = ymax/height
-                    assert xmin < xmax # IMP need to comment out
-                    assert ymin < ymax # IMP need to comment out
-                    # if xmin < xmax:
-                    #  pass
-                    # if ymin < ymax:
-                    #  pass
+#                     assert xmin < xmax # IMP need to comment out
+#                     assert ymin < ymax # IMP need to comment out
+                    if xmin < xmax:
+                        pass
+                    if ymin < ymax:
+                        pass
                     # Clip bounding boxes that go outside the image
                     if xmin < 0:
                         xmin = 0
