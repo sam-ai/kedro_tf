@@ -49,6 +49,11 @@ os.environ['PYTHONPATH'] += ':/home/Shiftu-Admin/tfodi_all_table_detector/kedro_
                             '/models/research/slim/'
 
 
+os.environ['PYTHONPATH'] += ':/home/Shiftu-Admin/tfodi_tobacoo_tag_14_1_20/kedro_tf/table_classifier/src/table_classifier/nodes/models' \
+                            '/research/:/home/Shiftu-Admin/tfodi_tobacoo_tag_14_1_20/kedro_tf/table_classifier/src/table_classifier/nodes' \
+                            '/models/research/slim/'
+
+
 
 
 
