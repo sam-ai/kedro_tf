@@ -1,4 +1,49 @@
 item {
   id: 1
+  name: 'sender_name'
+}
+
+item {
+  id: 2
+  name: 'type'
+}
+
+item {
+  id: 3
+  name: 'invoice_id'
+}
+
+item {
+  id: 4
+  name: 'date_issue'
+}
+
+item {
+  id: 5
+  name: 'date_due'
+}
+
+item {
+  id: 6
+  name: 'sender_information'
+}
+
+item {
+  id: 7
+  name: 'recipient_name'
+}
+
+item {
+  id: 9
+  name: 'recipient_information'
+}
+
+item {
+  id: 10
   name: 'TABLE'
+}
+
+item {
+  id: 11
+  name: 'terms'
 }
