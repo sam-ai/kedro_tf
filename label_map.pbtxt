@@ -40,7 +40,7 @@ item {
 
 item {
   id: 9
-  name: 'TABLE'
+  name: 'amount_total'
 }
 
 item {
