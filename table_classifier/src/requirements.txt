@@ -9,5 +9,5 @@ pytest>=3.4, <4.0
 wheel==0.32.2
 jsonlines
 opencv-python
-tensorflow==1.14.0
+tensorflow==2.5.1
 Pillow
